@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import collections from '../../config/collections';
 
 const createUser = async (userData: any) => {
@@ -33,6 +34,43 @@ const createUser = async (userData: any) => {
     }
 };
 
+// login user 
+const loginUser = async (loginData: any) => {
+    const { email, password } = loginData;
+
+    // exist user
+    const user = await collections.usersCollection.findOne({ email });
+    if (!user) {
+        const error: any = new Error("User not found!");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    //password matchd
+    const isPasswordMatched = await bcrypt.compare(password, user.password);
+    if (!isPasswordMatched) {
+        const error: any = new Error("Invalid password!");
+        error.statusCode = 401;
+        throw error;
+    }
+
+    // jwt token createt
+    const token = jwt.sign(
+        { email: user.email, role: user.role }, 
+        process.env.JWT_SECRET as string, 
+        { expiresIn: '19d' }
+    );
+
+    
+    const { password: _, ...userWithoutPassword } = user;
+
+    return {
+        token,
+        user: userWithoutPassword
+    };
+};
+
 export const userService = {
     createUser,
+    loginUser,
 };
