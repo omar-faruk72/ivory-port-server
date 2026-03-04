@@ -58,8 +58,33 @@ const getSingleFAQ = async (id: string) => {
     }
 };
 
+// update faq
+const updateFAQ = async (id: string, updateData: { question: string; answer: string }) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.faqsCollection.replaceOne(
+            query,
+            {
+                ...updateData,
+                updatedAt: new Date()
+            }
+        );
+
+        if (result.matchedCount === 0) {
+            const error: any = new Error("FAQ not found to update!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
+
 export const faqServices = {
     createFAQ,
     getAllFAQs,
     getSingleFAQ,
+    updateFAQ,
 }
