@@ -60,8 +60,30 @@ const getSingleServiceController = async (req: Request, res: Response) => {
     }
 };
 
+// update services 
+const updateServiceController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body; 
+        
+        const result = await serviceServices.updateService(id as string, updateData);
+
+        res.status(200).json({
+            success: true,
+            message: "Service replaced/updated successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to update service",
+        });
+    }
+};
+
 export const serviceControllers = {
     createServiceController,
     getAllServicesController,
     getSingleServiceController,
+    updateServiceController
 }
