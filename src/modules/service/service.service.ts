@@ -78,9 +78,28 @@ const updateService = async (id: string, updateData: any) => {
         throw err;
     }
 };
+
+// delete service 
+const deleteService = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.servicesCollection.deleteOne(query);
+
+        if (result.deletedCount === 0) {
+            const error: any = new Error("Service not found to delete!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const serviceServices = {
     createService,
     getAllServices,
     getSingleService,
     updateService,
+    deleteService
 }
