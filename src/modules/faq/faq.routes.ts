@@ -9,4 +9,5 @@ routes.get("/all-faqs", faqControllers.getAllFAQsController);
 
 routes.get("/faq/:id", faqControllers.getSingleFAQController);
 
+routes.put("/faq/:id", faqControllers.updateFAQController);
 export const faqRoutes = routes;
