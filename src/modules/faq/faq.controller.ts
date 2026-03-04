@@ -19,6 +19,29 @@ const createFAQController = async (req: Request, res: Response) => {
     }
 };
 
+// get all faq
+const getAllFAQsController = async (req: Request, res: Response) => {
+    try {
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10; 
+
+        const result = await faqServices.getAllFAQs(page, limit);
+
+        res.status(200).json({
+            success: true,
+            message: "FAQs fetched successfully!",
+            meta: result.meta,
+            data: result.faqs,
+        });
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch FAQs",
+        });
+    }
+};
+
 export const faqControllers = {
     createFAQController,
+    getAllFAQsController,
 }
