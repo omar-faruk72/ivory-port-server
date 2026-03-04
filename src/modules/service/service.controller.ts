@@ -41,7 +41,27 @@ const getAllServicesController = async (req: Request, res: Response) => {
     }
 };
 
+// get single service
+const getSingleServiceController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params; 
+        const result = await serviceServices.getSingleService(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Service fetched successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to fetch service",
+        });
+    }
+};
+
 export const serviceControllers = {
     createServiceController,
     getAllServicesController,
+    getSingleServiceController,
 }
