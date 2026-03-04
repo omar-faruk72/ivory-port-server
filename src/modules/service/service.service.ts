@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import collections from "../../config/collections";
 
 const createService = async (serviceData: any) => {
@@ -37,7 +38,26 @@ const getAllServices = async (page: number, limit: number) => {
         throw err;
     }
 };
+
+// get single service
+const getSingleService = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.servicesCollection.findOne(query);
+        
+        if (!result) {
+            const error: any = new Error("Service not found!");
+            error.statusCode = 404;
+            throw error;
+        }
+        
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const serviceServices = {
     createService,
     getAllServices,
+    getSingleService
 }
