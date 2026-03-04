@@ -19,6 +19,29 @@ const createServiceController = async (req: Request, res: Response) => {
     }
 };
 
+// getall services
+const getAllServicesController = async (req: Request, res: Response) => {
+    try {
+        const page = Number(req.query.page) || 1;
+        const limit = 4; 
+
+        const result = await serviceServices.getAllServices(page, limit);
+
+        res.status(200).json({
+            success: true,
+            message: "Services fetched successfully!",
+            meta: result.meta,
+            data: result.services,
+        });
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch services",
+        });
+    }
+};
+
 export const serviceControllers = {
     createServiceController,
+    getAllServicesController,
 }
