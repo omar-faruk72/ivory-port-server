@@ -7,6 +7,10 @@ const collections = {
 
     get servicesCollection() {
         return getDB().collection('services');
+    },
+
+    get faqsCollection() { 
+        return getDB().collection('faqs');
     }
 };
 
