@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import collections from '../../config/collections';
+import config from '../../config';
 
 const createUser = async (userData: any) => {
     const { email, password } = userData;
@@ -57,7 +58,7 @@ const loginUser = async (loginData: any) => {
     // jwt token createt
     const token = jwt.sign(
         { email: user.email, role: user.role }, 
-        process.env.JWT_SECRET as string, 
+        config.jwt_secret as string, 
         { expiresIn: '19d' }
     );
 

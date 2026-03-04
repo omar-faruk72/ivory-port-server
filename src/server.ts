@@ -19,7 +19,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // user
-app.use('', userRouters);
+app.use('/', userRouters);
 
 app.listen(PORT, () => {
   console.log(`Server is running on: http://localhost:${PORT}`);
