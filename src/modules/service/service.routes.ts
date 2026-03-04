@@ -7,4 +7,6 @@ router.post("/add-service", serviceControllers.createServiceController);
 
 router.get("/all-services", serviceControllers.getAllServicesController);
 
+router.get("/services/:id", serviceControllers.getSingleServiceController);
+
 export const serviceRoutes = router;
