@@ -82,9 +82,27 @@ const updateFAQ = async (id: string, updateData: { question: string; answer: str
     }
 };
 
+const deleteFAQ = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.faqsCollection.deleteOne(query);
+
+        if (result.deletedCount === 0) {
+            const error: any = new Error("FAQ not found to delete!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
+
 export const faqServices = {
     createFAQ,
     getAllFAQs,
     getSingleFAQ,
     updateFAQ,
+    deleteFAQ
 }
