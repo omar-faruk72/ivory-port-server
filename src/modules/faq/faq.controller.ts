@@ -41,7 +41,27 @@ const getAllFAQsController = async (req: Request, res: Response) => {
     }
 };
 
+// get single faq
+const getSingleFAQController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await faqServices.getSingleFAQ(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "FAQ fetched successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to fetch FAQ",
+        });
+    }
+};
+
 export const faqControllers = {
     createFAQController,
     getAllFAQsController,
+    getSingleFAQController,
 }
