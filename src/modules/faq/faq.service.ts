@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import collections from "../../config/collections";
 
 const createFAQ = async (faqData: { question: string; answer: string }) => {
@@ -39,7 +40,26 @@ const getAllFAQs = async (page: number, limit: number) => {
     }
 };
 
+// get single faq
+const getSingleFAQ = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.faqsCollection.findOne(query);
+
+        if (!result) {
+            const error: any = new Error("FAQ not found!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
+
 export const faqServices = {
     createFAQ,
     getAllFAQs,
+    getSingleFAQ,
 }
