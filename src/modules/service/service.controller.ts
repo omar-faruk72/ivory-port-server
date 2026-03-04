@@ -81,9 +81,29 @@ const updateServiceController = async (req: Request, res: Response) => {
     }
 };
 
+// delete service 
+const deleteServiceController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await serviceServices.deleteService(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Service deleted successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to delete service",
+        });
+    }
+};
+
 export const serviceControllers = {
     createServiceController,
     getAllServicesController,
     getSingleServiceController,
-    updateServiceController
+    updateServiceController,
+    deleteServiceController
 }
