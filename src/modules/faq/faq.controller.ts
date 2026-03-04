@@ -60,8 +60,30 @@ const getSingleFAQController = async (req: Request, res: Response) => {
     }
 };
 
+// update faq
+const updateFAQController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+        
+        const result = await faqServices.updateFAQ(id as string, updateData);
+
+        res.status(200).json({
+            success: true,
+            message: "FAQ updated successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to update FAQ",
+        });
+    }
+};
+
 export const faqControllers = {
     createFAQController,
     getAllFAQsController,
     getSingleFAQController,
+    updateFAQController,
 }
