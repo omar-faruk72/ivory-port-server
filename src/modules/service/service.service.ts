@@ -56,8 +56,31 @@ const getSingleService = async (id: string) => {
         throw err;
     }
 };
+
+// services update 
+const updateService = async (id: string, updateData: any) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        
+        const result = await collections.servicesCollection.replaceOne(
+            query, 
+            { ...updateData, updatedAt: new Date() } 
+        );
+
+        if (result.matchedCount === 0) {
+            const error: any = new Error("Service not found!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const serviceServices = {
     createService,
     getAllServices,
-    getSingleService
+    getSingleService,
+    updateService,
 }
