@@ -11,4 +11,6 @@ router.get("/services/:id", serviceControllers.getSingleServiceController);
 
 router.put("/services/:id", serviceControllers.updateServiceController);
 
+router.delete("/services/:id", serviceControllers.deleteServiceController);
+
 export const serviceRoutes = router;
