@@ -85,5 +85,5 @@ export const galleryServices = {
     addGallery,
     getAllGallery,
     getSingleGallery,
-    updateGallery,
+    updateGallery, 
 }
