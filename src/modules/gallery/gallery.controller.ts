@@ -38,7 +38,27 @@ const getAllGalleryController = async (req: Request, res: Response) => {
         });
     }
 };
+
+// get single gallery
+const getSingleGalleryController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await galleryServices.getSingleGallery(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Gallery item fetched successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to fetch gallery item",
+        });
+    }
+};
 export const galleryControllers = {
     addGalleryController,
     getAllGalleryController,
+    getSingleGalleryController,
 }
