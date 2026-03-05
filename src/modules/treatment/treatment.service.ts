@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import collections from "../../config/collections";
 
 const addTreatmentFee = async (feeData: any) => {
@@ -38,7 +39,25 @@ const getAllTreatment = async (page: number, limit: number) => {
         throw err;
     }
 };
+
+// get single treatment 
+const getSingleTreatment = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.treatmentFeesCollection.findOne(query);
+        if (!result) {
+            const error: any = new Error("Treatment fee not found!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const treatmentServices = {
     addTreatmentFee,
     getAllTreatment,
+    getSingleTreatment,
 }
