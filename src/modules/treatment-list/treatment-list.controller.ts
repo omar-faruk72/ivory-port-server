@@ -39,7 +39,27 @@ const getAllTreatmentsListController = async (req: Request, res: Response) => {
         });
     }
 };
+
+// get single treatment list 
+const getSingleTreatmentsListController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await treatmentListServices.getSingleTreatmentsList(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Treatment fetched successfully from list!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Something went wrong",
+        });
+    }
+};
 export const treatmentListController = {
     addTreatmentListController,
     getAllTreatmentsListController,
+    getSingleTreatmentsListController
 }
