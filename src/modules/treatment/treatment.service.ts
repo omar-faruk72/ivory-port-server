@@ -80,9 +80,28 @@ const updateTreatment = async (id: string, updateData: any) => {
         throw err;
     }
 };
+
+// delete treatment
+const deleteTreatment = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.treatmentFeesCollection.deleteOne(query);
+
+        if (result.deletedCount === 0) {
+            const error: any = new Error("Treatment fee not found to delete!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const treatmentServices = {
     addTreatmentFee,
     getAllTreatment,
     getSingleTreatment,
     updateTreatment,
+    deleteTreatment,
 }
