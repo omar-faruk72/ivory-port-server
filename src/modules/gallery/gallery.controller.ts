@@ -57,8 +57,29 @@ const getSingleGalleryController = async (req: Request, res: Response) => {
         });
     }
 };
+
+// update gallery
+const updateGalleryController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+        const result = await galleryServices.updateGallery(id as string, updateData);
+
+        res.status(200).json({
+            success: true,
+            message: "Gallery item updated successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to update gallery item",
+        });
+    }
+};
 export const galleryControllers = {
     addGalleryController,
     getAllGalleryController,
     getSingleGalleryController,
+    updateGalleryController,
 }
