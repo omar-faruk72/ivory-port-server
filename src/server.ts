@@ -5,6 +5,7 @@ import { connectDB } from './config/db';
 import { userRouters } from './modules/user/user.routes';
 import { serviceRoutes } from './modules/service/service.routes';
 import { faqRoutes } from './modules/faq/faq.routes';
+import { galleryRouters } from './modules/gallery/gallery.routes';
 
 const app = express();
 const PORT = config.port;
@@ -27,7 +28,10 @@ app.use('/', userRouters);
 app.use('/', serviceRoutes);
 
 // faqs
-app.use("/", faqRoutes)
+app.use("/", faqRoutes);
+
+// gallery
+app.use("/", galleryRouters);
 
 app.listen(PORT, () => {
   console.log(`Server is running on: http://localhost:${PORT}`);
