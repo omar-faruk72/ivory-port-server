@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import collections from "../../config/collections";
 
 const addTreatmentList = async (treatmentData: any) => {
@@ -39,7 +40,25 @@ const getAllTreatmentsList = async (page: number, limit: number) => {
     }
 };
 
+// get single treatment list
+const getSingleTreatmentsList = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.treatmentListCollection.findOne(query);
+
+        if (!result) {
+            const error: any = new Error("Treatment not found in list!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const treatmentListServices = {
     addTreatmentList,
     getAllTreatmentsList,
+    getSingleTreatmentsList,
 }
