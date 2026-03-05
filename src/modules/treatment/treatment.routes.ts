@@ -10,4 +10,6 @@ router.get("/all-treatments", treatmentControllers.getAllTreatmentController);
 router.get("/treatment/:id", treatmentControllers.getSingleTreatmentController);
 
 router.put("/treatment/:id", treatmentControllers.updateTreatmentController);
+
+router.delete("/treatment/:id", treatmentControllers.deleteTreatmentController);
 export const treatmentRouters = router;
