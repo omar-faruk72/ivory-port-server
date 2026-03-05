@@ -7,4 +7,7 @@ router.post("/add-treatment-list", treatmentListController.addTreatmentListContr
 
 router.get("/all-treatments-list", treatmentListController.getAllTreatmentsListController);
 
+// get single treatment list
+router.get("/treatment-list/:id", treatmentListController.getSingleTreatmentsListController);
+
 export const treatmentListRouters = router;
