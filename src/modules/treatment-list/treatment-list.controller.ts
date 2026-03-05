@@ -58,8 +58,30 @@ const getSingleTreatmentsListController = async (req: Request, res: Response) =>
         });
     }
 };
+
+// update treatment list
+const updateTreatmentsListController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+        
+        const result = await treatmentListServices.updateTreatmentsList(id as string, updateData);
+
+        res.status(200).json({
+            success: true,
+            message: "Treatment updated successfully in list!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to update treatment",
+        });
+    }
+};
 export const treatmentListController = {
     addTreatmentListController,
     getAllTreatmentsListController,
-    getSingleTreatmentsListController
+    getSingleTreatmentsListController,
+    updateTreatmentsListController,
 }
