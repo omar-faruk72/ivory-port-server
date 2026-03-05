@@ -13,5 +13,7 @@ router.get("/treatment-list/:id", treatmentListController.getSingleTreatmentsLis
 // update treatment list
 router.put("/treatment-list/:id", treatmentListController.updateTreatmentsListController);
 
+// delete treatment list
+router.delete("/treatment-list/:id", treatmentListController.deleteTreatmentsListController);
 
 export const treatmentListRouters = router;
