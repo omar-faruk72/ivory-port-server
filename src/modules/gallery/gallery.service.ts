@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import collections from "../../config/collections";
 
 const addGallery = async (imageData: any) => { 
@@ -39,7 +40,25 @@ const getAllGallery = async (page: number, limit: number) => {
     }
 };
 
+// get single gallery
+const getSingleGallery = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.galleryCollection.findOne(query);
+
+        if (!result) {
+            const error: any = new Error("Gallery item not found!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const galleryServices = {
     addGallery,
     getAllGallery,
+    getSingleGallery,
 }
