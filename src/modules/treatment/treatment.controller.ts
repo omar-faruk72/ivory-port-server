@@ -18,6 +18,28 @@ const addTreatmentController = async (req: Request, res: Response) => {
     }
 };
 
+// get all treatment
+const getAllTreatmentController = async (req: Request, res: Response) => {
+    try {
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10; 
+
+        const result = await treatmentServices.getAllTreatment(page, limit);
+
+        res.status(200).json({
+            success: true,
+            message: "Treatment fees fetched successfully!",
+            meta: result.meta,
+            data: result.fees,
+        });
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch treatment fees",
+        });
+    }
+};
 export const treatmentControllers = {
     addTreatmentController,
+    getAllTreatmentController,
 }
