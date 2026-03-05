@@ -57,8 +57,33 @@ const getSingleTreatmentsList = async (id: string) => {
         throw err;
     }
 };
+
+// update treatment list
+const updateTreatmentsList = async (id: string, updateData: any) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.treatmentListCollection.replaceOne(
+            query,
+            {
+                ...updateData,
+                updatedAt: new Date()
+            }
+        );
+
+        if (result.matchedCount === 0) {
+            const error: any = new Error("Treatment not found to update!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const treatmentListServices = {
     addTreatmentList,
     getAllTreatmentsList,
     getSingleTreatmentsList,
+    updateTreatmentsList,
 }
