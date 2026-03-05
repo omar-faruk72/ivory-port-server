@@ -39,7 +39,27 @@ const getAllTreatmentController = async (req: Request, res: Response) => {
         });
     }
 };
+
+// get single treatment
+const getSingleTreatmentController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await treatmentServices.getSingleTreatment(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Treatment fee fetched successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to fetch treatment fee",
+        });
+    }
+};
 export const treatmentControllers = {
     addTreatmentController,
     getAllTreatmentController,
+    getSingleTreatmentController,
 }
