@@ -6,6 +6,7 @@ import { userRouters } from './modules/user/user.routes';
 import { serviceRoutes } from './modules/service/service.routes';
 import { faqRoutes } from './modules/faq/faq.routes';
 import { galleryRouters } from './modules/gallery/gallery.routes';
+import { treatmentRouters } from './modules/treatment/treatment.routes';
 
 const app = express();
 const PORT = config.port;
@@ -33,6 +34,8 @@ app.use("/", faqRoutes);
 // gallery
 app.use("/", galleryRouters);
 
+// treatment
+app.use("/", treatmentRouters);
 app.listen(PORT, () => {
   console.log(`Server is running on: http://localhost:${PORT}`);
 });
