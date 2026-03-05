@@ -19,6 +19,10 @@ const collections = {
 
     get treatmentFeesCollection() { 
         return getDB().collection('treatment_fees');
+    },
+
+    get treatmentListCollection() { 
+        return getDB().collection('treatment_list');
     }
 };
 
