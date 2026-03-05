@@ -15,6 +15,10 @@ const collections = {
 
     get galleryCollection() {
         return getDB().collection('gallery');
+    },
+
+    get treatmentFeesCollection() { 
+        return getDB().collection('treatment_fees');
     }
 };
 
