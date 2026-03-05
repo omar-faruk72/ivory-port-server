@@ -11,6 +11,10 @@ const collections = {
 
     get faqsCollection() { 
         return getDB().collection('faqs');
+    },
+
+    get galleryCollection() {
+        return getDB().collection('gallery');
     }
 };
 
