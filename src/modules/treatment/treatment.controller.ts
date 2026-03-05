@@ -79,9 +79,29 @@ const updateTreatmentController = async (req: Request, res: Response) => {
         });
     }
 };
+
+// delete treatment
+const deleteTreatmentController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await treatmentServices.deleteTreatment(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Treatment fee deleted successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to delete treatment fee",
+        });
+    }
+};
 export const treatmentControllers = {
     addTreatmentController,
     getAllTreatmentController,
     getSingleTreatmentController,
     updateTreatmentController,
+    deleteTreatmentController
 }
