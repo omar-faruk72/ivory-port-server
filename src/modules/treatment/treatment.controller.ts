@@ -58,8 +58,30 @@ const getSingleTreatmentController = async (req: Request, res: Response) => {
         });
     }
 };
+
+// update treatment
+const updateTreatmentController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+        
+        const result = await treatmentServices.updateTreatment(id as string, updateData);
+
+        res.status(200).json({
+            success: true,
+            message: "Treatment fee updated successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to update treatment fee",
+        });
+    }
+};
 export const treatmentControllers = {
     addTreatmentController,
     getAllTreatmentController,
     getSingleTreatmentController,
+    updateTreatmentController,
 }
