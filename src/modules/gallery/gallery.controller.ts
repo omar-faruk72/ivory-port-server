@@ -77,9 +77,29 @@ const updateGalleryController = async (req: Request, res: Response) => {
         });
     }
 };
+
+// delete gallery 
+const deleteGalleryController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await galleryServices.deleteGallery(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Gallery item deleted successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to delete gallery item",
+        });
+    }
+};
 export const galleryControllers = {
     addGalleryController,
     getAllGalleryController,
     getSingleGalleryController,
     updateGalleryController,
+    deleteGalleryController,
 }
