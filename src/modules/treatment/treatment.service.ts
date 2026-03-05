@@ -56,8 +56,33 @@ const getSingleTreatment = async (id: string) => {
         throw err;
     }
 };
+
+// update treatment
+const updateTreatment = async (id: string, updateData: any) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.treatmentFeesCollection.replaceOne(
+            query,
+            {
+                ...updateData,
+                updatedAt: new Date()
+            }
+        );
+
+        if (result.matchedCount === 0) {
+            const error: any = new Error("Treatment fee not found to update!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const treatmentServices = {
     addTreatmentFee,
     getAllTreatment,
     getSingleTreatment,
+    updateTreatment,
 }
