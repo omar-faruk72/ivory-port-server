@@ -10,4 +10,8 @@ router.get("/all-treatments-list", treatmentListController.getAllTreatmentsListC
 // get single treatment list
 router.get("/treatment-list/:id", treatmentListController.getSingleTreatmentsListController);
 
+// update treatment list
+router.put("/treatment-list/:id", treatmentListController.updateTreatmentsListController);
+
+
 export const treatmentListRouters = router;
