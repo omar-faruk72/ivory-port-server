@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import collections from "../../config/collections";
 
 const createBooking = async (bookingData: any) => {
@@ -43,7 +44,26 @@ const getAllBookings = async (page: number, limit: number) => {
     }
 };
 
+// get single booking api
+const getSingleBooking = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.bookingCollection.findOne(query);
+
+        if (!result) {
+            const error: any = new Error("Booking not found!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
+
 export const bookingServices = {
     createBooking,
     getAllBookings,
+    getSingleBooking,
 }

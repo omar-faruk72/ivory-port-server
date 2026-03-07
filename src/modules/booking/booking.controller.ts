@@ -40,7 +40,27 @@ const getAllBookingsController = async (req: Request, res: Response) => {
     }
 };
 
+// get single booking api
+const getSingleBookingController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await bookingServices.getSingleBooking(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Booking details fetched successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Something went wrong while fetching booking",
+        });
+    }
+};
+
 export const bookingControllers = {
     createBookingController,
     getAllBookingsController,
+    getSingleBookingController,
 }
