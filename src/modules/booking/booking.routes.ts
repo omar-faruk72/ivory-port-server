@@ -11,4 +11,7 @@ router.get("/all-bookings", bookingControllers.getAllBookingsController);
 // get single booking api
 router.get("/booking/:id", bookingControllers.getSingleBookingController);
 
+// update booking
+router.put("/booking/:id", bookingControllers.updateBookingController);
+
 export const bookingRouters = router;

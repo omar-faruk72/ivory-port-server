@@ -59,8 +59,30 @@ const getSingleBookingController = async (req: Request, res: Response) => {
     }
 };
 
+// update booking
+const updateBookingController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+        
+        const result = await bookingServices.updateBooking(id as string, updateData);
+
+        res.status(200).json({
+            success: true,
+            message: "Booking updated successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to update booking",
+        });
+    }
+};
+
 export const bookingControllers = {
     createBookingController,
     getAllBookingsController,
     getSingleBookingController,
+    updateBookingController,
 }

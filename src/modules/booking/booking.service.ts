@@ -5,7 +5,7 @@ const createBooking = async (bookingData: any) => {
     try {
         const payload = {
             ...bookingData,
-            status: "pending", 
+            status: "pending",
             paymentStatus: "unpaid",
             createdAt: new Date(),
         };
@@ -62,8 +62,32 @@ const getSingleBooking = async (id: string) => {
     }
 };
 
+// update booking
+const updateBooking = async (id: string, updateData: any) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.bookingCollection.replaceOne(
+            query,
+            {
+                ...updateData,
+                updatedAt: new Date()
+            }
+        );
+
+        if (result.matchedCount === 0) {
+            const error: any = new Error("Booking not found to update!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const bookingServices = {
     createBooking,
     getAllBookings,
     getSingleBooking,
+    updateBooking,
 }
