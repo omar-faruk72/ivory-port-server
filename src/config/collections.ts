@@ -23,6 +23,10 @@ const collections = {
 
     get treatmentListCollection() { 
         return getDB().collection('treatment_list');
+    }, 
+
+    get contactCollection() { 
+        return getDB().collection('contacts');
     }
 };
 
