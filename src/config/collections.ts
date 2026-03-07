@@ -27,6 +27,10 @@ const collections = {
 
     get contactCollection() { 
         return getDB().collection('contacts');
+    }, 
+
+    get bookingCollection() { 
+        return getDB().collection('bookings');
     }
 };
 

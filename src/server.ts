@@ -9,6 +9,7 @@ import { galleryRouters } from './modules/gallery/gallery.routes';
 import { treatmentRouters } from './modules/treatment/treatment.routes';
 import { treatmentListRouters } from './modules/treatment-list/treatment-list.routes';
 import { contactRouters } from './modules/contact/contact.routes';
+import { bookingRouters } from './modules/booking/booking.routes';
 
 const app = express();
 const PORT = config.port;
@@ -44,6 +45,9 @@ app.use("/", treatmentListRouters);
 
 // contact
 app.use("/", contactRouters);
+
+// booking
+app.use("/", bookingRouters);
 
 app.listen(PORT, () => {
   console.log(`Server is running on: http://localhost:${PORT}`);
