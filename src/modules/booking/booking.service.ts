@@ -16,6 +16,34 @@ const createBooking = async (bookingData: any) => {
     }
 };
 
+// get all booking api
+const getAllBookings = async (page: number, limit: number) => {
+    try {
+        const skip = (page - 1) * limit;
+        const bookings = await collections.bookingCollection
+            .find()
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit)
+            .toArray();
+
+        const total = await collections.bookingCollection.countDocuments();
+
+        return {
+            bookings,
+            meta: {
+                page,
+                limit,
+                total,
+                totalPage: Math.ceil(total / limit)
+            }
+        };
+    } catch (err) {
+        throw err;
+    }
+};
+
 export const bookingServices = {
     createBooking,
+    getAllBookings,
 }

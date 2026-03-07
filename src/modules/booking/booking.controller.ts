@@ -18,6 +18,29 @@ const createBookingController = async (req: Request, res: Response) => {
     }
 };
 
+// get all booking api
+const getAllBookingsController = async (req: Request, res: Response) => {
+    try {
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+
+        const result = await bookingServices.getAllBookings(page, limit);
+
+        res.status(200).json({
+            success: true,
+            message: "All bookings fetched successfully!",
+            meta: result.meta,
+            data: result.bookings,
+        });
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch bookings",
+        });
+    }
+};
+
 export const bookingControllers = {
     createBookingController,
+    getAllBookingsController,
 }
