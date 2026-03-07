@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import collections from "../../config/collections";
 
 const addContact = async (contactData: any) => {
@@ -42,7 +43,26 @@ const getAllContact = async (page: number, limit: number) => {
     }
 };
 
+// get single contact
+const getSingleContact = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.contactCollection.findOne(query);
+
+        if (!result) {
+            const error: any = new Error("Contact message not found!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
+
 export const contactServices = {
     addContact,
     getAllContact,
+    getSingleContact,
 }

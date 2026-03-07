@@ -40,7 +40,27 @@ const getAllContactsController = async (req: Request, res: Response) => {
     }
 };
 
+// get single contact
+const getSingleContactController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await contactServices.getSingleContact(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Contact message fetched successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to fetch contact message",
+        });
+    }
+};
+
 export const contactControllers = {
     addContactController,
     getAllContactsController,
+    getSingleContactController
 }
