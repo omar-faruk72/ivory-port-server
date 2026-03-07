@@ -85,9 +85,28 @@ const updateContact = async (id: string, updateData: any) => {
     }
 };
 
+// delete contact
+const deleteContact = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.contactCollection.deleteOne(query);
+
+        if (result.deletedCount === 0) {
+            const error: any = new Error("Contact message not found to delete!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
+
 export const contactServices = {
     addContact,
     getAllContact,
     getSingleContact,
     updateContact,
+    deleteContact,
 }

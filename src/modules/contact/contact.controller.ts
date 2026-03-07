@@ -80,9 +80,29 @@ const updateContactController = async (req: Request, res: Response) => {
     }
 };
 
+// delete contact
+const deleteContactController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await contactServices.deleteContact(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Contact message deleted successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to delete contact message",
+        });
+    }
+};
+
 export const contactControllers = {
     addContactController,
     getAllContactsController,
     getSingleContactController,
     updateContactController,
+    deleteContactController
 }
