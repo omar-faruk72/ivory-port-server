@@ -11,4 +11,7 @@ router.get("/contacts", contactControllers.getAllContactsController);
 // get single contact
 router.get("/contact/:id", contactControllers.getSingleContactController);
 
+// update contact
+router.put("/contact/:id", contactControllers.updateContactController);
+
 export const contactRouters = router;

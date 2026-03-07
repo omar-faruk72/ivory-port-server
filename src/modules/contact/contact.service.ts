@@ -61,8 +61,33 @@ const getSingleContact = async (id: string) => {
     }
 };
 
+// update contact
+const updateContact = async (id: string, updateData: any) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.contactCollection.replaceOne(
+            query,
+            {
+                ...updateData,
+                updatedAt: new Date()
+            }
+        );
+
+        if (result.matchedCount === 0) {
+            const error: any = new Error("Contact message not found to update!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
+
 export const contactServices = {
     addContact,
     getAllContact,
     getSingleContact,
+    updateContact,
 }
