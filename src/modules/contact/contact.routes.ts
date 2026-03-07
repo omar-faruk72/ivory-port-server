@@ -5,4 +5,7 @@ const router = Router();
 
 router.post("/add-contact", contactControllers.addContactController);
 
+// get all contact
+router.get("/contacts", contactControllers.getAllContactsController)
+
 export const contactRouters = router;
