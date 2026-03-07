@@ -80,9 +80,29 @@ const updateBookingController = async (req: Request, res: Response) => {
     }
 };
 
+// delete booking
+const deleteBookingController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await bookingServices.deleteBooking(id as string);
+
+        res.status(200).json({
+            success: true,
+            message: "Booking deleted successfully!",
+            data: result,
+        });
+    } catch (err: any) {
+        res.status(err.statusCode || 500).json({
+            success: false,
+            message: err.message || "Failed to delete booking",
+        });
+    }
+};
+
 export const bookingControllers = {
     createBookingController,
     getAllBookingsController,
     getSingleBookingController,
     updateBookingController,
+    deleteBookingController,
 }

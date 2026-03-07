@@ -85,9 +85,28 @@ const updateBooking = async (id: string, updateData: any) => {
         throw err;
     }
 };
+
+// delete booking
+const deleteBooking = async (id: string) => {
+    try {
+        const query = { _id: new ObjectId(id) };
+        const result = await collections.bookingCollection.deleteOne(query);
+
+        if (result.deletedCount === 0) {
+            const error: any = new Error("Booking not found to delete!");
+            error.statusCode = 404;
+            throw error;
+        }
+
+        return result;
+    } catch (err) {
+        throw err;
+    }
+};
 export const bookingServices = {
     createBooking,
     getAllBookings,
     getSingleBooking,
     updateBooking,
+    deleteBooking,
 }

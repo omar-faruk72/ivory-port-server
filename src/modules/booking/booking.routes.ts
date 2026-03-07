@@ -14,4 +14,7 @@ router.get("/booking/:id", bookingControllers.getSingleBookingController);
 // update booking
 router.put("/booking/:id", bookingControllers.updateBookingController);
 
+// delete booking api
+router.delete("/booking/:id", bookingControllers.deleteBookingController);
+
 export const bookingRouters = router;
