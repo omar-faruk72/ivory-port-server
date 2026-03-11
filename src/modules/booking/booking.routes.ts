@@ -1,20 +1,21 @@
 import { Router } from "express";
 import { bookingControllers } from "./booking.controller";
+import { auth, isAdmin } from "../../middleware/auth.middleware";
 
 const router = Router();
 
 router.post("/add-booking", bookingControllers.createBookingController);
 
 // get all booking api
-router.get("/all-bookings", bookingControllers.getAllBookingsController);
+router.get("/all-bookings", auth, isAdmin, bookingControllers.getAllBookingsController);
 
 // get single booking api
-router.get("/booking/:id", bookingControllers.getSingleBookingController);
+router.get("/booking/:id", auth, isAdmin, bookingControllers.getSingleBookingController);
 
 // update booking
-router.put("/booking/:id", bookingControllers.updateBookingController);
+router.put("/booking/:id", auth, isAdmin, bookingControllers.updateBookingController);
 
 // delete booking api
-router.delete("/booking/:id", bookingControllers.deleteBookingController);
+router.delete("/booking/:id", auth, isAdmin, bookingControllers.deleteBookingController);
 
 export const bookingRouters = router;
