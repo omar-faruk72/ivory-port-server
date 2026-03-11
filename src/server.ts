@@ -16,7 +16,10 @@ const PORT = config.port;
 
 
 // middleware
-app.use(cors());
+app.use(cors({
+  origin: ["https://ivory-port.vercel.app", "http://localhost:3000"],
+  credentials: true,
+}));
 app.use(express.json());
 
 connectDB();
