@@ -26,28 +26,28 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // user
-app.use('/', userRouters);
+app.use('/api/auth', userRouters);
 
 // services
-app.use('/', serviceRoutes);
+app.use('/api/services', serviceRoutes);
 
 // faqs
-app.use("/", faqRoutes);
+app.use("/api/faq", faqRoutes);
 
 // gallery
-app.use("/", galleryRouters);
+app.use("/api/gallery", galleryRouters);
 
 // treatment
-app.use("/", treatmentRouters);
+app.use("/api/treatment", treatmentRouters);
 
 // treatment list
-app.use("/", treatmentListRouters);
+app.use("/api/treatment-list", treatmentListRouters);
 
 // contact
-app.use("/", contactRouters);
+app.use("/api/contact", contactRouters);
 
 // booking
-app.use("/", bookingRouters);
+app.use("/api/booking", bookingRouters);
 
 app.listen(PORT, () => {
   console.log(`Server is running on: http://localhost:${PORT}`);
